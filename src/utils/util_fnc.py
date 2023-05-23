@@ -22,3 +22,11 @@ def read_video(video_path):
     video = np.stack(frames)
     print(video.shape)
     return video.swapaxes(0, 3)
+
+
+def box_denormalize(x1, y1, x2, y2, width, height, img_size=512):
+    x1 = (x1 / img_size) * width
+    y1 = (y1 / img_size) * height
+    x2 = (x2 / img_size) * width
+    y2 = (y2 / img_size) * height
+    return x1.item(), y1.item(), x2.item(), y2.item()

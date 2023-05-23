@@ -1,13 +1,15 @@
 ---
-exp_name:  # 0417
+exp_name: baseline_fasterrcnn # 0417
 exp_dir: ../exp
-device: 'cpu' # 'mps' in M1 Mac
+device: 'gpu' # 'mps' in M1 Mac
 seed: None # If you want to reproduce set the seed
-model_name:  # NCF, NCF_p
+model_name: faster_rcnn # NCF, NCF_p
 train_resume: False
 
 dataset:
-    dir:
+    dir: ./data
+    img_size: 512
+    num_classes: 34
     val_size: 0.2
 
 train:
@@ -19,6 +21,3 @@ train:
     batch_size : 32
 
 model:
-    embedding_dim: 64
-    hidden_dim: 128
-    drop_out: 0.3
