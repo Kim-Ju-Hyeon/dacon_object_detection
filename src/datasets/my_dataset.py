@@ -30,7 +30,7 @@ def train_validation_split(root, train=True, ratio=0.3):
     if train:
         boxes = sorted(glob.glob(root+'/*.txt'))
 
-    train_x, train_y, val_x, val_y = train_test_split(imgs, boxes, ratio=ratio)
+    train_x, train_y, val_x, val_y = train_test_split(imgs, boxes, test_size=ratio)
 
     return [train_x, train_y], [val_x, val_y]
 
