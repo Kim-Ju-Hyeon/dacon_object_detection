@@ -61,8 +61,6 @@ def main(conf_file_path, inference, train_resume):
             train_dataset = CustomDataset(img_list=train_data[0], boxes_list=train_data[1], transforms=train_transform)
             val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=val_transform)
 
-            collate_function = collate_fn()
-
             train_loader = DataLoader(train_dataset, batch_size=config.train.batch_size, shuffle=True, collate_fn=collate_fn)
             val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False)
 
