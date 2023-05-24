@@ -39,7 +39,7 @@ class Runner(object):
     
         # Choose the model
         if self.config.model_name == 'faster_rcnn':
-            self.model = build_fastrcnn(num_classes=self.config.dataset.num_classes)
+            self.model = build_fastrcnn(num_classes=self.config.dataset.num_classes+1)
         else:
             raise ValueError("Non-supported Model")
         
