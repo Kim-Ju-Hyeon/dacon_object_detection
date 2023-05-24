@@ -11,7 +11,7 @@ from utils.logger import setup_logging
 from utils.train_helper import set_seed, mkdir, edict2dict
 from datasets.my_dataset import *
 from datasets.transforms import *
-from runner.runner import baseline_runner
+from runner.baseline_runner import Runner
 from torch.utils.data import DataLoader
 
 
@@ -51,7 +51,7 @@ def main(conf_file_path, inference, train_resume):
 
 
     try:
-        runner = baseline_runner(config=config, logger=logger)        
+        runner = Runner(config=config, logger=logger)        
         if not inference:
             train_data, val_data = train_validation_split(config.dataset.dir, train=True, ratio=config.dataset.val_size)
 
