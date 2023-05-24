@@ -91,7 +91,7 @@ class Runner(object):
                 best_val = val_loss
                 torch.save(self.model.state_dict(), self.best_model_dir)
             
-            # self.logger.info(f'Epoch {epoch:03d}: train_loss = {sum_train_loss:.4f} | val_loss = {sum_val_loss:.4f}')
+            self.logger.info(f'Epoch {epoch:03d}: train_loss = {sum_train_loss:.4f} | val_loss = {sum_val_loss:.4f}')
             self.logger.info(f'Best Validation Loss: {best_val:.4f}')
                 
         # Save the training and validation metrics to a file
