@@ -1,20 +1,20 @@
 import os
+import yaml
+import json
+from tqdm import tqdm
+from collections import defaultdict
+
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
-import json
 import torch
 import torch.nn as nn
-
-from collections import defaultdict
 import torch.optim as optim
 
-from utils.train_helper import model_snapshot, load_model
-
-import yaml
 from utils.train_helper import edict2dict
 from utils.util_fnc import box_denormalize
+from utils.train_helper import model_snapshot, load_model
 
+from models.fasterrcnn import build_fastrcnn
 
 class Runner(object):
     def __init__(self, config, logger):
@@ -39,7 +39,7 @@ class Runner(object):
     
         # Choose the model
         if self.config.model_name == 'faster_rcnn':
-            pass
+            self.model = build_fastrcnn(num_classes=self.config.dataset.num_classes)
         else:
             raise ValueError("Non-supported Model")
         
@@ -171,7 +171,7 @@ class Runner(object):
         results = pd.read_csv(self.dataset_conf.dir+'/sample_submission.csv')
 
         for img_files, images, img_width, img_height in tqdm(iter(test_loader)):
-            images = [img.to(device) for img in images]
+            images = [img.to(self.device) for img in images]
 
             with torch.no_grad():
                 outputs = self.model(images)
