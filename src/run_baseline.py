@@ -53,16 +53,18 @@ def main(conf_file_path, inference, train_resume):
     try:
         runner = baseline_runner(config=config, logger=logger)        
         if not inference:
-            collate_function = collate_fn()
-            train_transform = get_train_transforms(config.dataset.img_size)
-            test_transform = get_test_transforms(config.dataset.img_size)
+            train_data, val_data = train_validation_split(config.dataset.dir, train=True, ratio=config.dataset.val_size)
 
-            train_dataset = CustomDataset()
-            val_dataset = CustomDataset()
+            train_transform = get_train_transforms(config.dataset.img_size)
+            val_transform = get_test_transforms(config.dataset.img_size)
+
+            train_dataset = CustomDataset(img_list=train_data[0], boxes_list=train_data[1], transforms=train_transform)
+            val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=val_transform)
+
+            collate_function = collate_fn()
 
             train_loader = DataLoader(train_dataset, batch_size=config.train.batch_size, shuffle=True, collate_fn=collate_fn)
             val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False)
-
 
             runner.train(train_loader, val_loader)
 

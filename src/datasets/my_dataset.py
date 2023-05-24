@@ -1,7 +1,8 @@
 import glob
+import os
 
 import numpy as np
-
+from sklearn.model_selection import train_validation_split
 import torch
 from torch.utils.data import Dataset
 
@@ -23,15 +24,24 @@ def collate_fn(batch):
     return images, targets
 
 
+def train_validation_split(root, train=True, ratio=0.3):
+    imgs = sorted(glob.glob(os.path.join(root,'*.png')))
+
+    if train:
+        boxes = sorted(glob.glob(root+'/*.txt'))
+
+    train_x, train_y, val_x, val_y = train_validation_split(imgs, boxes, ratio=ratio)
+
+    return [train_x, train_y], [val_x, val_y]
+
+
 class CustomDataset(Dataset):
-    def __init__(self, root, train=True, transforms=None):
-        self.root = root
-        self.train = train
+    def __init__(self, img_list, boxes_list=None, transforms=None):
         self.transforms = transforms
-        self.imgs = sorted(glob.glob(root+'/*.png'))
+        self.imgs = img_list
         
-        if train:
-            self.boxes = sorted(glob.glob(root+'/*.txt'))
+        if boxes_list:
+            self.boxes = boxes_list
 
     def parse_boxes(self, box_path):
         with open(box_path, 'r') as file:
