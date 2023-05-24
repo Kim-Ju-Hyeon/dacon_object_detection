@@ -36,9 +36,10 @@ def train_validation_split(root, train=True, ratio=0.3):
 
 
 class CustomDataset(Dataset):
-    def __init__(self, img_list, boxes_list=None, transforms=None):
+    def __init__(self, img_list, boxes_list=None, transforms=None, train=False):
         self.transforms = transforms
         self.imgs = img_list
+        self.train = train
         
         if boxes_list:
             self.boxes = boxes_list
