@@ -25,6 +25,10 @@ def collate_fn(batch):
 
 
 def train_validation_split(root, train=True, ratio=0.3):
+    '''
+    TODO 
+    class unbalance train_validation split -> make class same with original Dataset
+    '''
     imgs = sorted(glob.glob(os.path.join(root,'train', '*.png')))
 
     if train:
@@ -34,7 +38,7 @@ def train_validation_split(root, train=True, ratio=0.3):
 
     assert len(imgs) == len(boxes), "imgs and boxes must have the same length"
 
-    train_x, train_y, val_x, val_y = train_test_split(imgs, boxes, test_size=ratio)
+    train_x, val_x, train_y, val_y = train_test_split(imgs, boxes, test_size=ratio)
 
     return [train_x, train_y], [val_x, val_y]
 
