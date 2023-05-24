@@ -59,7 +59,7 @@ def main(conf_file_path, inference, train_resume):
             val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=get_validation_transforms(config.dataset.img_size), train=True)
 
             train_loader = DataLoader(train_dataset, batch_size=config.train.batch_size, shuffle=True, collate_fn=collate_fn)
-            val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False)
+            val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False, collate_fn=collate_fn)
 
             runner.train(train_loader, val_loader)
 

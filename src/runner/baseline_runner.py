@@ -69,13 +69,13 @@ class Runner(object):
 
         for epoch in range(1, self.train_conf.epoch+1):
             # Train the model for one epoch
-            train_loss = self._train_epoch(train_dataloader)
-            sum_train_loss = train_loss['total']
+            # train_loss = self._train_epoch(train_dataloader)
+            # sum_train_loss = train_loss['total']
 
-            for key in train_loss:
-                if key not in train_losses:
-                    train_losses[key] = []
-                train_losses[key].append(train_loss[key])
+            # for key in train_loss:
+            #     if key not in train_losses:
+            #         train_losses[key] = []
+            #     train_losses[key].append(train_loss[key])
 
             # Compute validation metric
             val_loss = self._evaluate(val_dataloader)
@@ -91,7 +91,7 @@ class Runner(object):
                 best_val = val_loss
                 torch.save(self.model.state_dict(), self.best_model_dir)
             
-            self.logger.info(f'Epoch {epoch:03d}: train_loss = {sum_train_loss:.4f} | val_loss = {sum_val_loss:.4f}')
+            # self.logger.info(f'Epoch {epoch:03d}: train_loss = {sum_train_loss:.4f} | val_loss = {sum_val_loss:.4f}')
             self.logger.info(f'Best Validation Loss: {best_val:.4f}')
                 
         # Save the training and validation metrics to a file
