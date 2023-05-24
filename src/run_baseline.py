@@ -55,11 +55,8 @@ def main(conf_file_path, inference, train_resume):
         if not inference:
             train_data, val_data = train_validation_split(config.dataset.dir, train=True, ratio=config.dataset.val_size)
 
-            train_transform = get_train_transforms(config.dataset.img_size)
-            val_transform = get_test_transforms(config.dataset.img_size)
-
-            train_dataset = CustomDataset(img_list=train_data[0], boxes_list=train_data[1], transforms=train_transform, train=True)
-            val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=val_transform, train=True)
+            train_dataset = CustomDataset(img_list=train_data[0], boxes_list=train_data[1], transforms=get_train_transforms(config.dataset.img_size), train=True)
+            val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=get_validation_transforms(config.dataset.img_size), train=True)
 
             train_loader = DataLoader(train_dataset, batch_size=config.train.batch_size, shuffle=True, collate_fn=collate_fn)
             val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False)
