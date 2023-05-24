@@ -29,6 +29,10 @@ def train_validation_split(root, train=True, ratio=0.3):
 
     if train:
         boxes = sorted(glob.glob(os.path.join(root,'train', '*.txt')))
+    else:
+        boxes = [None] * len(imgs)
+
+    assert len(imgs) == len(boxes), "imgs and boxes must have the same length"
 
     train_x, train_y, val_x, val_y = train_test_split(imgs, boxes, test_size=ratio)
 
