@@ -2,7 +2,7 @@ import glob
 import os
 
 import numpy as np
-from sklearn.model_selection import train_validation_split
+from sklearn.model_selection import train_test_split
 import torch
 from torch.utils.data import Dataset
 
