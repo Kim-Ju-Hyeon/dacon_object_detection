@@ -75,7 +75,7 @@ class Runner(object):
             for key in train_loss:
                 if key not in train_losses:
                     train_losses[key] = []
-                train_losses[key].append(train_loss[key].item())
+                train_losses[key].append(train_loss[key])
 
             # Compute validation metric
             val_loss = self._evaluate(val_dataloader)
@@ -84,7 +84,7 @@ class Runner(object):
             for key in val_loss:
                 if key not in val_losses:
                     val_losses[key] = []
-                val_losses[key].append(val_loss[key].item())
+                val_losses[key].append(val_loss[key])
 
             # Save the weights of the best model
             if val_loss > best_val:
