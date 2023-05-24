@@ -87,7 +87,7 @@ class Runner(object):
                 val_losses[key].append(val_loss[key])
 
             # Save the weights of the best model
-            if val_loss > best_val:
+            if sum_val_loss > best_val:
                 best_val = val_loss
                 torch.save(self.model.state_dict(), self.best_model_dir)
             
