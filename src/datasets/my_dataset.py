@@ -25,10 +25,10 @@ def collate_fn(batch):
 
 
 def train_validation_split(root, train=True, ratio=0.3):
-    imgs = sorted(glob.glob(os.path.join(root,'*.png')))
+    imgs = sorted(glob.glob(os.path.join(root,'train', '*.png')))
 
     if train:
-        boxes = sorted(glob.glob(root+'/*.txt'))
+        boxes = sorted(glob.glob(os.path.join(root,'train', '*.txt')))
 
     train_x, train_y, val_x, val_y = train_test_split(imgs, boxes, test_size=ratio)
 
