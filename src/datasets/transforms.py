@@ -30,9 +30,9 @@ def grid_search_train_transforms(augmentation_config, img_size=512):
 
     for augmentations in itertools.product(*all_augmentations):
         augmentations = [aug for aug in augmentations if aug is not None]  # Remove None values
-        name = ['_'+str(aug).split('(')[0] for aug in augmentations if aug is not None]
+        aug_list = [str(aug).split('(')[0] for aug in augmentations if aug is not None]
         augmentations.append(A.Resize(img_size, img_size))
         augmentations.append(A.Normalize())
         augmentations.append(ToTensorV2())
 
-        yield A.Compose(augmentations, bbox_params=A.BboxParams(format='pascal_voc', label_fields=['labels'])), ''.join(name)
+        yield A.Compose(augmentations, bbox_params=A.BboxParams(format='pascal_voc', label_fields=['labels'])), aug_list
