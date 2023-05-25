@@ -24,6 +24,7 @@ def main(conf_file_path):
         for train_transforms, name in grid_search_train_transforms(augmentation_config=config.augmentations):
             now = datetime.datetime.now(pytz.timezone('Asia/Seoul'))
             sub_dir = now.strftime('%m%d_%H%M%S')
+            print(name)
             sub_dir = str(config.exp_name) + name + '_' + sub_dir
             
             config.seed = set_seed(config.seed)
