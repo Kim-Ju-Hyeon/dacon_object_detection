@@ -1,6 +1,6 @@
 ---
 exp_name: baseline_fasterrcnn # 0417
-exp_dir: ../exp
+exp_dir: ../exp/augmentation_grid_search
 device: 'gpu' # 'mps' in M1 Mac
 seed: None # If you want to reproduce set the seed
 model_name: faster_rcnn # NCF, NCF_p
@@ -18,6 +18,18 @@ train:
     lr: 1.0e-3
     wd: 0.0e-4 # Adam
     momentum: 0.9 # SGD
-    batch_size : 1
+    batch_size : 32
 
 model:
+
+augmentations:
+    HorizontalFlip: 
+        p: 0.5
+    VerticalFlip: 
+        p: 0.5
+    RandomRotate90: 
+        p: 0.5
+    RandomBrightnessContrast: 
+        p: 0.2
+    GaussNoise: 
+        p: 0.2
