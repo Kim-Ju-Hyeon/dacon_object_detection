@@ -44,13 +44,17 @@ def train_validation_split(root, train=True, ratio=0.3):
 
 
 class CustomDataset(Dataset):
-    def __init__(self, img_list, boxes_list=None, transforms=None, train=False):
+    def __init__(self, img_list, boxes_list=None, transforms=None, train=False, root=None):
         self.transforms = transforms
-        self.imgs = img_list
-        self.train = train
-        
+        if img_list:
+            assert root, "If you don't pass the img_list than you have to pass the root of the img_path"
+            self.imgs = sorted(glob.glob(os.path.join(root,'test', '*.png')))
+
         if boxes_list:
             self.boxes = boxes_list
+
+        self.imgs = img_list
+        self.train = train
 
     def parse_boxes(self, box_path):
         with open(box_path, 'r') as file:
