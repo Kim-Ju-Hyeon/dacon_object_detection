@@ -48,7 +48,7 @@ def main(conf_file_path):
 
             train_dataset = CustomDataset(img_list=train_data[0], boxes_list=train_data[1], transforms=train_transforms, train=True)
             val_dataset = CustomDataset(img_list=val_data[0], boxes_list=val_data[1], transforms=get_validation_transforms(config.dataset.img_size), train=True)
-            test_dataset = CustomDataset(root=config.dataset.dir+'/test',train=False, transforms=get_test_transforms(config.dataset.img_size))
+            test_dataset = CustomDataset(img_list=None,train=False, transforms=get_test_transforms(config.dataset.img_size), root=config.dataset.dir+'/test')
 
             train_loader = DataLoader(train_dataset, batch_size=config.train.batch_size, shuffle=True, collate_fn=collate_fn)
             val_loader = DataLoader(val_dataset, batch_size=config.train.batch_size, shuffle=False, collate_fn=collate_fn)
