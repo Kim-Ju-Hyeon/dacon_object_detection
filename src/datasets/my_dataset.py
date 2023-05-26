@@ -46,7 +46,7 @@ def train_validation_split(root, train=True, ratio=0.3):
 class CustomDataset(Dataset):
     def __init__(self, img_list, boxes_list=None, transforms=None, train=False, root=None):
         self.transforms = transforms
-        if img_list:
+        if not img_list:
             assert root, "If you don't pass the img_list than you have to pass the root of the img_path"
             self.imgs = sorted(glob.glob(os.path.join(root,'test', '*.png')))
 
