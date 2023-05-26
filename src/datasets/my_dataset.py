@@ -49,11 +49,13 @@ class CustomDataset(Dataset):
         if not img_list:
             assert root, "If you don't pass the img_list than you have to pass the root of the img_path"
             self.imgs = sorted(glob.glob(os.path.join(root, '*.png')))
+        else:
+            self.imgs = img_list
+            
 
         if boxes_list:
             self.boxes = boxes_list
 
-        self.imgs = img_list
         self.train = train
 
     def parse_boxes(self, box_path):
