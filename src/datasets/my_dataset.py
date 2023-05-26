@@ -48,7 +48,7 @@ class CustomDataset(Dataset):
         self.transforms = transforms
         if not img_list:
             assert root, "If you don't pass the img_list than you have to pass the root of the img_path"
-            self.imgs = sorted(glob.glob(os.path.join(root,'test', '*.png')))
+            self.imgs = sorted(glob.glob(os.path.join(root, '*.png')))
 
         if boxes_list:
             self.boxes = boxes_list
